@@ -132,12 +132,12 @@ class Question(models.Model):
         on_delete=models.CASCADE
     )
 
-    question_text = models.CharField(max_length=200)
+    content = models.CharField(max_length=200)
 
-    grade = models.IntegerField(default=1)
+    grade = models.IntegerField(default=50)
 
     def __str__(self):
-        return self.question_text
+        return "Question: " + self.content
 
     # method to calculate if the learner gets the score of the question
     def is_get_score(self, selected_ids):
@@ -163,12 +163,12 @@ class Choice(models.Model):
         on_delete=models.CASCADE
     )
 
-    choice_text = models.CharField(max_length=200)
+    content = models.CharField(max_length=200)
 
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.choice_text
+        return self.content
 
 
 # Submission model
@@ -179,3 +179,6 @@ class Submission(models.Model):
     )
 
     choices = models.ManyToManyField(Choice)
+
+    def __str__(self):
+        return f"Enrollment ID: {self.enrollment.id}"
